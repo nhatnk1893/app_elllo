@@ -3,8 +3,7 @@ part 'lesson.g.dart';
 
 @JsonSerializable(nullable: false)
 class Lesson {
-  final int id;
-  final String title, thumnailUrl, subTitle;
+  final String id, title, thumnailUrl, subTitle;
 
   Lesson({this.id, this.title, this.thumnailUrl, this.subTitle});
 
