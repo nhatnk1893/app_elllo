@@ -1,15 +1,14 @@
 import 'package:app_elllo/src/models/lesson.dart';
-import 'package:app_elllo/src/template/tutorial/tutorial_provider.dart';
+import 'package:app_elllo/src/template/tabLesson/tab_provider.dart';
 import 'package:app_elllo/src/template/utils/lesson_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TutorialScreen extends StatelessWidget {
+class TabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<TutorialProvider>(
-      builder: (BuildContext context, TutorialProvider tutorialProvider,
-          Widget child) {
+    return Consumer<TabProvider>(
+      builder: (BuildContext context, TabProvider tabProvider, Widget child) {
         return Scaffold(
           body: ListView(
             children: <Widget>[
@@ -17,9 +16,9 @@ class TutorialScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: tutorialProvider.list.length,
+                itemCount: tabProvider.list.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Lesson lesson = tutorialProvider.list[index];
+                  Lesson lesson = tabProvider.list[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
                     child: LessonItem(

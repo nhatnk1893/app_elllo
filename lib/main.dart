@@ -1,11 +1,11 @@
 import 'package:app_elllo/src/template/splash/splash_screen.dart';
-import 'package:app_elllo/src/template/tutorial/tutorial_provider.dart';
+import 'package:app_elllo/src/template/tabLesson/tab_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => TutorialProvider()),
+        ChangeNotifierProvider(create: (_) => TabProvider()),
       ],
       child: MyApp(),
     ));
