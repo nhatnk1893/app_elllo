@@ -10,6 +10,7 @@ class TabProvider extends ChangeNotifier {
   List<Lesson> list = new List<Lesson>();
   int _tabIndex = 0;
   int get tabIndex => _tabIndex;
+  bool isLoading = true;
 
   TabProvider() {
     fetchData;
@@ -17,20 +18,35 @@ class TabProvider extends ChangeNotifier {
 
   Future<List<Lesson>> get fetchData async {
     String valueIndex = tabs[_tabIndex].value;
+    setLoading(true);
     list = await _lessonRepo.getLessonsByTab(valueIndex, 1, LIMIT);
     setLesson(list);
+    setLoading(false);
     return list;
   }
 
   void updateLesson(value) async {
+    cleanOldLesson();
     String valueIndex = tabs[_tabIndex].value;
+    setLoading(true);
     setTabIndex(value);
     list = await _lessonRepo.getLessonsByTab(valueIndex, 1, LIMIT);
     setLesson(list);
+    setLoading(false);
+  }
+
+  void setLoading(value) async {
+    isLoading = value;
+    notifyListeners();
   }
 
   void setLesson(value) async {
     list = value;
+    notifyListeners();
+  }
+
+  void cleanOldLesson() async {
+    list = [];
     notifyListeners();
   }
 

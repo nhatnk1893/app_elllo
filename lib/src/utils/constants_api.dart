@@ -1,4 +1,4 @@
-const BASE_URL = "https://5e82b12978337f00160ae4c5.mockapi.io/mock";
+const BASE_URL = "https://5e82b12978337f00160ae4c5.mockapi.io/mock/";
 
 const LESSONSTUTORIAL = "lesson_tutorial";
 const LESSONSLEVEL = "lesson_level";
@@ -17,13 +17,13 @@ String getUrl(String tabName, int page, int limit) {
     case LESSONSLEVEL:
       url = url + LESSONSLEVEL;
       break;
-    case LESSONSLEVEL:
+    case LESSONSAUDIO:
       url = url + LESSONSAUDIO;
       break;
-    case LESSONSLEVEL:
+    case LESSONSVIDEO:
       url = url + LESSONSVIDEO;
       break;
-    case LESSONSLEVEL:
+    case LESSONSMIXER:
       url = url + LESSONSMIXER;
       break;
     default:
