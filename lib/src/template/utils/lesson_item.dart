@@ -7,27 +7,22 @@ class LessonItem extends StatelessWidget {
   final String img;
   final String title;
   final String subTitle;
-  final String tabValue;
+  final String tabName;
   final Lesson lesson;
 
   const LessonItem(
-      {Key key,
-      this.img,
-      this.title,
-      this.subTitle,
-      this.tabValue,
-      this.lesson})
+      {Key key, this.img, this.title, this.subTitle, this.tabName, this.lesson})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.rightToLeft, child: TabScreen()),
-        );
+        // Navigator.push(
+        //   context,
+        //   PageTransition(
+        //       type: PageTransitionType.rightToLeft, child: TabScreen()),
+        // );
       },
       child: Container(
         height: 150,
@@ -80,7 +75,7 @@ class LessonItem extends StatelessWidget {
                       ),
                       Divider(),
                       Text(
-                        tabValue,
+                        tabName,
                       ),
                     ],
                   ),

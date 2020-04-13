@@ -1,6 +1,11 @@
 import 'package:app_elllo/src/models/tab.dart';
 import 'package:app_elllo/src/template/tabLesson/tab_provider.dart';
 import 'package:app_elllo/src/template/tabLesson/tab_screen.dart';
+import 'package:app_elllo/src/template/tabs/tab_audio.dart';
+import 'package:app_elllo/src/template/tabs/tab_level.dart';
+import 'package:app_elllo/src/template/tabs/tab_mixer.dart';
+import 'package:app_elllo/src/template/tabs/tab_tutorial.dart';
+import 'package:app_elllo/src/template/tabs/tab_video.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,18 +22,12 @@ class _MainScreenState extends State<MainScreen>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: tabs.length);
-    _tabController.addListener(_handleTabSelection);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  _handleTabSelection() {
-    Provider.of<TabProvider>(context, listen: false)
-        .updateLesson(_tabController.index);
   }
 
   @override
@@ -51,18 +50,12 @@ class _MainScreenState extends State<MainScreen>
       ),
       drawer: Drawer(),
       body: TabBarView(controller: _tabController, children: [
-        TabScreen(),
-        TabScreen(),
-        TabScreen(),
-        TabScreen(),
-        TabScreen(),
+        TabTutorial(),
+        TabLevel(),
+        TabAudio(),
+        TabVideo(),
+        TabMixer()
       ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Provider.of<TabProvider>(context, listen: false).setTabIndex(10);
-        },
-        child: Text('${Provider.of<TabProvider>(context).tabIndex}'),
-      ),
     );
   }
 }

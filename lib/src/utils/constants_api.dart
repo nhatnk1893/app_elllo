@@ -1,33 +1,56 @@
 const BASE_URL = "https://5e82b12978337f00160ae4c5.mockapi.io/mock/";
 
-const LESSONSTUTORIAL = "lesson_tutorial";
-const LESSONSLEVEL = "lesson_level";
-const LESSONSAUDIO = "lesson_audio";
-const LESSONSVIDEO = "lesson_video";
-const LESSONSMIXER = "lesson_mixer";
+const TABTUTORIAL = "lesson_tutorial";
+const TABLEVEL = "lesson_level";
+const TABAUDIO = "lesson_audio";
+const TABVIDEO = "lesson_video";
+const TABMIXER = "lesson_mixer";
 
 const LIMIT = 20;
 
 String getUrl(String tabName, int page, int limit) {
   String url = "$BASE_URL";
   switch (tabName) {
-    case LESSONSTUTORIAL:
-      url = url + LESSONSTUTORIAL;
+    case TABTUTORIAL:
+      url = url + TABTUTORIAL;
       break;
-    case LESSONSLEVEL:
-      url = url + LESSONSLEVEL;
+    case TABLEVEL:
+      url = url + TABLEVEL;
       break;
-    case LESSONSAUDIO:
-      url = url + LESSONSAUDIO;
+    case TABAUDIO:
+      url = url + TABAUDIO;
       break;
-    case LESSONSVIDEO:
-      url = url + LESSONSVIDEO;
+    case TABVIDEO:
+      url = url + TABVIDEO;
       break;
-    case LESSONSMIXER:
-      url = url + LESSONSMIXER;
+    case TABMIXER:
+      url = url + TABMIXER;
       break;
     default:
   }
   url = "$url?page=$page&limit=$limit";
+  return url;
+}
+
+String getUrlByTabname(String tabName) {
+  String url = "$BASE_URL";
+  switch (tabName) {
+    case TABTUTORIAL:
+      url = url + TABTUTORIAL;
+      break;
+    case TABLEVEL:
+      url = url + TABLEVEL;
+      break;
+    case TABAUDIO:
+      url = url + TABAUDIO;
+      break;
+    case TABVIDEO:
+      url = url + TABVIDEO;
+      break;
+    case TABMIXER:
+      url = url + TABMIXER;
+      break;
+    default:
+  }
   return url;
 }
