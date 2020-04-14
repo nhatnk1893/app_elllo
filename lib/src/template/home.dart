@@ -1,14 +1,11 @@
 import 'package:app_elllo/src/models/tab.dart';
-import 'package:app_elllo/src/template/tabLesson/tab_provider.dart';
-import 'package:app_elllo/src/template/tabLesson/tab_screen.dart';
-import 'package:app_elllo/src/template/tabs/tab_audio.dart';
-import 'package:app_elllo/src/template/tabs/tab_level.dart';
-import 'package:app_elllo/src/template/tabs/tab_mixer.dart';
-import 'package:app_elllo/src/template/tabs/tab_tutorial.dart';
-import 'package:app_elllo/src/template/tabs/tab_video.dart';
+import 'package:app_elllo/src/template/tabs/views/tab_audio.dart';
+import 'package:app_elllo/src/template/tabs/views/tab_level.dart';
+import 'package:app_elllo/src/template/tabs/views/tab_mixer.dart';
+import 'package:app_elllo/src/template/tabs/views/tab_tutorial.dart';
+import 'package:app_elllo/src/template/tabs/views/tab_video.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   @override

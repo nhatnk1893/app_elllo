@@ -1,14 +1,7 @@
 import 'package:app_elllo/src/template/splash/splash_screen.dart';
-import 'package:app_elllo/src/template/tabLesson/tab_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => TabProvider()),
-      ],
-      child: MyApp(),
-    ));
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override

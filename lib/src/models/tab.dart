@@ -8,9 +8,9 @@ class TabChoice {
 }
 
 List<TabChoice> tabs = <TabChoice>[
-  TabChoice(title: 'TUTORIAL', value: LESSONSTUTORIAL),
-  TabChoice(title: 'LEVEL', value: LESSONSLEVEL),
-  TabChoice(title: 'AUDIO', value: LESSONSAUDIO),
-  TabChoice(title: 'VIDEO', value: LESSONSVIDEO),
-  TabChoice(title: 'MIXER', value: LESSONSMIXER),
+  TabChoice(title: 'TUTORIAL', value: TABTUTORIAL),
+  TabChoice(title: 'LEVEL', value: TABLEVEL),
+  TabChoice(title: 'AUDIO', value: TABAUDIO),
+  TabChoice(title: 'VIDEO', value: TABVIDEO),
+  TabChoice(title: 'MIXER', value: TABMIXER),
 ];

@@ -1,7 +1,5 @@
 import 'package:app_elllo/src/models/lesson.dart';
-import 'package:app_elllo/src/template/tabLesson/tab_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 class LessonItem extends StatelessWidget {
   final String img;
