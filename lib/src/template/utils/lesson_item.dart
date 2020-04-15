@@ -28,7 +28,7 @@ class LessonItem extends StatelessWidget {
           color: Colors.white,
           elevation: 10.0,
           borderRadius: BorderRadius.circular(20.0),
-          shadowColor: Colors.blueAccent[200],
+          shadowColor: Colors.pink[200],
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

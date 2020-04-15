@@ -31,27 +31,45 @@ class _MainScreenState extends State<MainScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Elllo english'),
-        actions: <Widget>[
-          IconButton(icon: Icon(FeatherIcons.sun), onPressed: () {})
-        ],
-        bottom: TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            indicatorColor: Colors.pinkAccent,
-            tabs: tabs
-                .map((TabChoice tab) => Tab(
-                      text: tab.title,
-                    ))
-                .toList()),
-      ),
+          title: Text('Elllo english'),
+          actions: <Widget>[
+            IconButton(icon: Icon(FeatherIcons.sun), onPressed: () {})
+          ],
+          bottom: PreferredSize(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.pink[200],
+                      offset: Offset(
+                        0.0, // horizontal, move right 10
+                        0.70, // vertical, move down 10
+                      ),
+                    )
+                  ],
+                ),
+                child: TabBar(
+                    controller: _tabController,
+                    isScrollable: true,
+                    unselectedLabelColor: Colors.pink[200],
+                    indicatorColor: Colors.pinkAccent,
+                    labelColor: Colors.pink[400],
+                    tabs: tabs
+                        .map((TabChoice tab) => Tab(
+                              text: tab.title,
+                            ))
+                        .toList()),
+              ),
+              preferredSize: const Size.fromHeight(48.0))),
       drawer: Drawer(),
       body: TabBarView(controller: _tabController, children: [
         TabTutorial(),
         TabLevel(),
-        TabAudio(),
-        TabVideo(),
-        TabMixer()
+        TabTutorial(),
+        TabTutorial(),
+        TabTutorial(),
       ]),
     );
   }

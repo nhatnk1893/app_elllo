@@ -4,7 +4,7 @@ import 'package:app_elllo/src/services/lesson/lesson_repositoryImpl.dart';
 import 'package:app_elllo/src/utils/constants_api.dart';
 import 'package:flutter/cupertino.dart';
 
-class TabViewModel extends ChangeNotifier {
+class TabViewModel1 extends ChangeNotifier {
   LessonRepository _lessonRepository = LessonRepositoryImpl();
 
   List<Lesson> tutorialDataLst = new List<Lesson>();
@@ -16,15 +16,15 @@ class TabViewModel extends ChangeNotifier {
   bool isLoading = true;
   int tabIndex = 0;
 
-  TabViewModel() {
+  TabViewModel1() {
     fetchData();
   }
 
   fetchData() async {
     setLoading(true);
-    final tutorial = await _lessonRepository.getDataByTabname(TABTUTORIAL);
+    final tutorial = await _lessonRepository.getDataByTabname(TABLEVEL);
 
-    setTutorialData(tutorial);
+    setLevelData(tutorial);
     // var level = await _lessonRepository.getDataByTabname(TABLEVEL) == null
     //     ? []
     //     : _lessonRepository.getDataByTabname(TABLEVEL);
