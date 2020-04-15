@@ -1,26 +1,36 @@
-import 'package:app_elllo/src/models/lesson.dart';
+import 'package:app_elllo/src/models/course/course.dart';
+import 'package:app_elllo/src/template/lesson/view_lesson.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
-class LessonItem extends StatelessWidget {
+class CourseItem extends StatelessWidget {
   final String img;
   final String title;
   final String subTitle;
   final String tabName;
-  final Lesson lesson;
+  final String id;
+  final Course lesson;
 
-  const LessonItem(
-      {Key key, this.img, this.title, this.subTitle, this.tabName, this.lesson})
+  const CourseItem(
+      {Key key,
+      this.img,
+      this.title,
+      this.subTitle,
+      this.tabName,
+      this.id,
+      this.lesson})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   PageTransition(
-        //       type: PageTransitionType.rightToLeft, child: TabScreen()),
-        // );
+        Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.rightToLeft,
+              child: SessionView(title: title, idCourse: id)),
+        );
       },
       child: Container(
         height: 150,

@@ -1,11 +1,14 @@
 import 'package:app_elllo/src/models/tab.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:app_elllo/src/template/tabs/view_model.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_audio.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_level.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_mixer.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_tutorial.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_video.dart';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -15,10 +18,17 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+
+  _handleTabSelection() {
+    Provider.of<TabViewModel>(context, listen: false)
+        .setTabIndex(_tabController.index);
+  }
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: tabs.length);
+    _tabController.addListener(_handleTabSelection());
   }
 
   @override
@@ -67,9 +77,9 @@ class _MainScreenState extends State<MainScreen>
       body: TabBarView(controller: _tabController, children: [
         TabTutorial(),
         TabLevel(),
-        TabTutorial(),
-        TabTutorial(),
-        TabTutorial(),
+        TabAudio(),
+        TabVideo(),
+        TabMixer()
       ]),
     );
   }
