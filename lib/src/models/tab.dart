@@ -1,16 +1,15 @@
-import 'package:app_elllo/src/utils/constants_api.dart';
+import 'package:app_elllo/src/utils/constants.dart';
 
 class TabChoice {
   final String title;
-  final String value;
 
-  TabChoice({this.title, this.value});
+  TabChoice({this.title});
 }
 
 List<TabChoice> tabs = <TabChoice>[
-  TabChoice(title: 'TUTORIAL', value: TABTUTORIAL),
-  TabChoice(title: 'LEVEL', value: TABLEVEL),
-  TabChoice(title: 'AUDIO', value: TABAUDIO),
-  TabChoice(title: 'VIDEO', value: TABVIDEO),
-  TabChoice(title: 'MIXER', value: TABMIXER),
+  TabChoice(title: CategoryName.CATEGORY_TUTORIAL),
+  TabChoice(title: CategoryName.CATEGORY_LEVEL),
+  TabChoice(title: CategoryName.CATEGORY_AUDIO),
+  TabChoice(title: CategoryName.CATEGORY_VIDEO),
+  TabChoice(title: CategoryName.CATEGORY_MIXER),
 ];

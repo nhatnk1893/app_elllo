@@ -8,9 +8,9 @@ class LessonViewModel extends ChangeNotifier {
   List<Lesson> lstLesson = [];
   bool isLoading = true;
 
-  fetchData(url, id) async {
+  fetchData(code) async {
     setLoading(true);
-    final data = await _repository.getLesson(url, id);
+    final data = await _repository.getLesson(code);
     setDataLesson(data);
     setLoading(false);
   }

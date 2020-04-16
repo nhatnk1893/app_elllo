@@ -8,18 +8,18 @@ part of 'lesson.dart';
 
 Lesson _$LessonFromJson(Map<String, dynamic> json) {
   return Lesson(
-    json['id'] as String,
-    json['parentId'] as String,
-    json['title'] as String,
-    json['thumnailUrl'] as String,
-    json['subTitle'] as String,
+    json['lesson_id'] as String,
+    json['lesson_code'] as String,
+    json['lesson_title'] as String,
+    json['lesson_image'] as String,
+    json['lesson_descript'] as String,
   );
 }
 
 Map<String, dynamic> _$LessonToJson(Lesson instance) => <String, dynamic>{
-      'id': instance.id,
-      'parentId': instance.parentId,
-      'title': instance.title,
-      'thumnailUrl': instance.thumnailUrl,
-      'subTitle': instance.subTitle,
+      'lesson_id': instance.id,
+      'lesson_code': instance.code,
+      'lesson_title': instance.title,
+      'lesson_image': instance.image,
+      'lesson_descript': instance.descript,
     };

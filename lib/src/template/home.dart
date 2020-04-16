@@ -22,6 +22,7 @@ class _MainScreenState extends State<MainScreen>
   _handleTabSelection() {
     Provider.of<TabViewModel>(context, listen: false)
         .setTabIndex(_tabController.index);
+    Provider.of<TabViewModel>(context, listen: false).fetchData();
   }
 
   @override

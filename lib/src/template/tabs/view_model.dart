@@ -1,18 +1,18 @@
-import 'package:app_elllo/src/models/course/course.dart';
+import 'package:app_elllo/src/models/category/category.dart';
 import 'package:app_elllo/src/models/tab.dart';
 import 'package:app_elllo/src/services/network/network_repository.dart';
 import 'package:app_elllo/src/services/network/network_repositoryImpl.dart';
-import 'package:app_elllo/src/utils/constants_api.dart';
+import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 
 class TabViewModel extends ChangeNotifier {
   NetWorkRepository _repository = NetworkRepositoryImpl();
 
-  List<Course> tutorialDataLst = [];
-  List<Course> levelDataLst = [];
-  List<Course> audioDataLst = [];
-  List<Course> videoDataLst = [];
-  List<Course> mixerDataLst = [];
+  List<Category> listCategoryTutorial = [];
+  List<Category> listCategoryLevel = [];
+  List<Category> listCategoryAudio = [];
+  List<Category> listCategoryVideo = [];
+  List<Category> listCategoryMixer = [];
 
   bool isLoading = true;
   int tabIndex = 0;
@@ -23,22 +23,22 @@ class TabViewModel extends ChangeNotifier {
 
   fetchData() async {
     setLoading(true);
-    String tabName = tabs[tabIndex].value;
-    final data = await _repository.getCourse(tabName);
+    String tabName = tabs[tabIndex].title.toLowerCase();
+    final data = await _repository.getCategory(tabName);
     switch (tabName) {
-      case TABTUTORIAL:
+      case CategoryName.CATEGORY_TUTORIAL:
         setTutorialData(data);
         break;
-      case TABLEVEL:
+      case CategoryName.CATEGORY_LEVEL:
         setLevelData(data);
         break;
-      case TABAUDIO:
+      case CategoryName.CATEGORY_AUDIO:
         setAudioData(data);
         break;
-      case TABVIDEO:
+      case CategoryName.CATEGORY_VIDEO:
         setVideoData(data);
         break;
-      case TABMIXER:
+      case CategoryName.CATEGORY_MIXER:
         setMixerData(data);
         break;
       default:
@@ -60,35 +60,35 @@ class TabViewModel extends ChangeNotifier {
 
   void setTutorialData(value) async {
     if (value != null) {
-      tutorialDataLst = value;
+      listCategoryTutorial = value;
     }
     notifyListeners();
   }
 
   void setLevelData(value) async {
     if (value != null) {
-      levelDataLst = value;
+      listCategoryLevel = value;
     }
     notifyListeners();
   }
 
   void setAudioData(value) async {
     if (value != null) {
-      audioDataLst = value;
+      listCategoryAudio = value;
     }
     notifyListeners();
   }
 
   void setVideoData(value) async {
     if (value != null) {
-      videoDataLst = value;
+      listCategoryVideo = value;
     }
     notifyListeners();
   }
 
   void setMixerData(value) async {
     if (value != null) {
-      mixerDataLst = value;
+      listCategoryMixer = value;
     }
     notifyListeners();
   }

@@ -1,36 +1,26 @@
-import 'package:app_elllo/src/models/course/course.dart';
-import 'package:app_elllo/src/template/lesson/view_lesson.dart';
+import 'package:app_elllo/src/models/lesson/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-class CourseItem extends StatelessWidget {
+class LessonItem extends StatelessWidget {
   final String img;
   final String title;
   final String subTitle;
-  final String tabName;
-  final String id;
-  final Course lesson;
+  final Lesson lesson;
 
-  const CourseItem(
-      {Key key,
-      this.img,
-      this.title,
-      this.subTitle,
-      this.tabName,
-      this.id,
-      this.lesson})
+  const LessonItem({Key key, this.img, this.title, this.subTitle, this.lesson})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.rightToLeft,
-              child: SessionView(title: title, idCourse: id)),
-        );
+        // Navigator.push(
+        //   context,
+        //   PageTransition(
+        //       type: PageTransitionType.rightToLeft,
+        //       child: SessionView(title: title, idCourse: id)),
+        // );
       },
       child: Container(
         height: 150,
@@ -83,7 +73,7 @@ class CourseItem extends StatelessWidget {
                       ),
                       Divider(),
                       Text(
-                        tabName,
+                        subTitle,
                       ),
                     ],
                   ),
