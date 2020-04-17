@@ -10,10 +10,9 @@ class NetworkApi {
     String path = "$BASE_URL$CATEGORY$category&api_key=$API_KEY";
     var response = await http.get(path);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      var reponseJson = json.decode(response.body);
-      var rest = reponseJson['Lesson'] as List;
+      List reponseJson = json.decode(response.body);
       List<Category> course =
-          rest.map((n) => new Category.fromJson(n)).toList();
+          reponseJson.map((n) => new Category.fromJson(n)).toList();
       return course;
     } else {
       return null;

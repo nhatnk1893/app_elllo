@@ -23,7 +23,7 @@ class TabViewModel extends ChangeNotifier {
 
   fetchData() async {
     setLoading(true);
-    String tabName = tabs[tabIndex].title.toLowerCase();
+    String tabName = tabs[2].title.toLowerCase();
     final data = await _repository.getCategory(tabName);
     switch (tabName) {
       case CategoryName.CATEGORY_TUTORIAL:
@@ -32,7 +32,7 @@ class TabViewModel extends ChangeNotifier {
       case CategoryName.CATEGORY_LEVEL:
         setLevelData(data);
         break;
-      case CategoryName.CATEGORY_AUDIO:
+      case "audio":
         setAudioData(data);
         break;
       case CategoryName.CATEGORY_VIDEO:

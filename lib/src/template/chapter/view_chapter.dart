@@ -2,6 +2,8 @@ import 'package:app_elllo/src/models/tab_chapter.dart';
 import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 
+import 'tab/view_script.dart';
+
 class ChapterView extends StatefulWidget {
   @override
   _ChapterViewState createState() => _ChapterViewState();
@@ -60,7 +62,7 @@ class _ChapterViewState extends State<ChapterView>
                         .toList()),
               ),
               preferredSize: const Size.fromHeight(48.0))),
-      body: TabBarView(controller: _tabController, children: []),
+      body: TabBarView(controller: _tabController, children: [ScriptView()]),
     );
   }
 }

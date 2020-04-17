@@ -25,7 +25,6 @@ class _ScriptViewState extends State<ScriptView> {
               child: SingleChildScrollView(
             child: Html(data: """${widget.script}"""),
           )),
-          Expanded(child: ExampleApp())
         ],
       ),
     );

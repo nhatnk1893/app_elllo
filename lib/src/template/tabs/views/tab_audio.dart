@@ -17,7 +17,7 @@ class _TabAudioState extends State<TabAudio>
     super.build(context);
     return Consumer<TabViewModel>(builder:
         (BuildContext context, TabViewModel tabViewModel, Widget child) {
-      var categories = tabViewModel.listCategoryTutorial;
+      var categories = tabViewModel.listCategoryAudio;
       return Scaffold(
           body: tabViewModel.isLoading
               ? Center(child: CircularProgressIndicator())

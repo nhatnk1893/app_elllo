@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: tabs.length);
-    _tabController.addListener(_handleTabSelection());
+    _tabController.addListener(_handleTabSelection);
   }
 
   @override

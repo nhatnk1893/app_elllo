@@ -27,7 +27,7 @@ class CategoryItem extends StatelessWidget {
         );
       },
       child: Container(
-          height: 150,
+          height: 120,
           child: new Material(
             color: Colors.white,
             elevation: 10.0,
@@ -38,11 +38,11 @@ class CategoryItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: 150,
+                    height: 120,
                     child: ClipRRect(
                         child: Container(
                       constraints: new BoxConstraints.expand(
-                        height: 150.0,
+                        height: 120.0,
                       ),
                       alignment: Alignment.bottomLeft,
                       padding: new EdgeInsets.only(left: 16.0, bottom: 8.0),
@@ -61,7 +61,7 @@ class CategoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: null,
+                    padding: EdgeInsets.only(left: 8.0),
                     child: Center(
                       child: Text(
                         '$name',

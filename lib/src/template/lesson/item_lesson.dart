@@ -1,6 +1,9 @@
 import 'package:app_elllo/src/models/lesson/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+
+import '../chapter/tab/view_script.dart';
 
 class LessonItem extends StatelessWidget {
   final String img;
@@ -15,12 +18,11 @@ class LessonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   PageTransition(
-        //       type: PageTransitionType.rightToLeft,
-        //       child: SessionView(title: title, idCourse: id)),
-        // );
+        Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.rightToLeft, child: ScriptView()),
+        );
       },
       child: Container(
         height: 150,
