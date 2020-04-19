@@ -1,4 +1,5 @@
 import 'package:app_elllo/src/models/category/category.dart';
+import 'package:app_elllo/src/models/chapter/chapter_api.dart';
 import 'package:app_elllo/src/models/lesson/lesson.dart';
 import 'package:app_elllo/src/services/network/network_api.dart';
 import 'package:app_elllo/src/services/network/network_repository.dart';
@@ -14,5 +15,10 @@ class NetworkRepositoryImpl with NetWorkRepository {
   @override
   Future<List<Category>> getCategory(String category) {
     return _api.getCategory(category);
+  }
+
+  @override
+  Future<ChapterApi> getChapter(String id) {
+    return _api.getChapter(id);
   }
 }

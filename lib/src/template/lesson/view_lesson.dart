@@ -39,6 +39,7 @@ class LessonView extends StatelessWidget {
                                   img: lesson.image,
                                   title: lesson.title,
                                   subTitle: lesson.descript,
+                                  id: lesson.id,
                                 ));
                           },
                         ),

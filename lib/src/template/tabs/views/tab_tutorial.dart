@@ -2,7 +2,6 @@ import 'package:app_elllo/src/models/category/category.dart';
 import 'package:app_elllo/src/template/tabs/item_category.dart';
 import 'package:app_elllo/src/template/tabs/view_model.dart';
 import 'package:app_elllo/src/template/utils/fetch_fail.dart';
-import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

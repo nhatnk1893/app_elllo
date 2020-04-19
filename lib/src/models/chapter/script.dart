@@ -1,3 +1,0 @@
-// class Script{
-//   final String
-// }

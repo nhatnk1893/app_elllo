@@ -1,3 +1,4 @@
+import 'package:app_elllo/src/template/chapter/view_model_chapter.dart';
 import 'package:app_elllo/src/template/splash/splash_screen.dart';
 import 'package:app_elllo/src/template/tabs/view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ import 'src/template/lesson/view_model_lesson.dart';
 void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => TabViewModel()),
-        ChangeNotifierProvider(create: (_) => LessonViewModel())
+        ChangeNotifierProvider(create: (_) => LessonViewModel()),
+        ChangeNotifierProvider(create: (_) => ChapterViewModel())
         // add more provider.
       ],
       child: MyApp(),

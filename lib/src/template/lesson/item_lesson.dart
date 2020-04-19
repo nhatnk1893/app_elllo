@@ -1,27 +1,30 @@
-import 'package:app_elllo/src/models/lesson/lesson.dart';
+import 'package:app_elllo/src/template/chapter/view_chapter.dart';
+import 'package:app_elllo/src/template/chapter/view_model_chapter.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
-import '../chapter/tab/view_script.dart';
 
 class LessonItem extends StatelessWidget {
   final String img;
   final String title;
   final String subTitle;
-  final Lesson lesson;
+  final String id;
 
-  const LessonItem({Key key, this.img, this.title, this.subTitle, this.lesson})
+  const LessonItem({Key key, this.img, this.title, this.subTitle, this.id})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Provider.of<ChapterViewModel>(context, listen: false).fetchData(id);
         Navigator.push(
           context,
           PageTransition(
-              type: PageTransitionType.rightToLeft, child: ScriptView()),
+              type: PageTransitionType.rightToLeft,
+              child: ChapterView(
+                title: title,
+              )),
         );
       },
       child: Container(
