@@ -27,53 +27,30 @@ class CategoryItem extends StatelessWidget {
         );
       },
       child: Container(
-          height: 120,
+          height: 56,
           child: new Material(
             color: Colors.white,
-            elevation: 10.0,
+            elevation: 2.0,
             borderRadius: BorderRadius.circular(20.0),
-            shadowColor: Colors.blue[100],
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 120,
-                    child: ClipRRect(
-                        child: Container(
-                      constraints: new BoxConstraints.expand(
-                        height: 120.0,
-                      ),
-                      alignment: Alignment.bottomLeft,
-                      padding: new EdgeInsets.only(left: 16.0, bottom: 8.0),
-                      decoration: new BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20.0),
-                            bottomLeft: Radius.circular(20.0)),
-                        image: new DecorationImage(
-                          image: new NetworkImage(img),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )),
-                  ),
-                  flex: 1,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 8.0),
-                    child: Center(
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.arrow_forward_ios),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                        child: Align(
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         '$name',
                         style: TextStyle(
-                            fontSize: 24.0, fontWeight: FontWeight.w100),
+                            fontSize: 20, fontWeight: FontWeight.w500),
                       ),
-                    ),
-                  ),
-                  flex: 2,
-                ),
-              ],
-            ),
+                    ))
+                  ],
+                )),
           )),
     );
   }

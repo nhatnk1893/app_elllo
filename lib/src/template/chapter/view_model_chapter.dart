@@ -14,7 +14,7 @@ class ChapterViewModel extends ChangeNotifier {
   ChapterApi chapter;
   List<QuizModel> lstQuizData = new List<QuizModel>();
   bool isLoading = true;
-  List<AnsModel> lstAns = new List<AnsModel>();
+  List<AnsModel> lstAnwsome = new List<AnsModel>();
   List<AnsModel> lstChoice = new List<AnsModel>();
   List<AnsModel> lstResult = new List<AnsModel>();
 
@@ -46,7 +46,7 @@ class ChapterViewModel extends ChangeNotifier {
         lstQusestion.add(new QuizQuestion(
             key: key, questionName: questionQuiz, color: Colors.white));
       }
-      lstAns.add(new AnsModel(keyQuiz: keyQuiz, ans: anwsome));
+      lstAnwsome.add(new AnsModel(keyQuiz: keyQuiz, ans: anwsome));
       lstQuizData.add(new QuizModel(
           keyQuiz: keyQuiz, question: question, quizQuestion: lstQusestion));
     }
@@ -58,7 +58,8 @@ class ChapterViewModel extends ChangeNotifier {
   }
 
   void choiceAns(keyId, id) {
-    var anwsome = lstChoice.firstWhere((element) => element.keyQuiz == keyId);
+    var anwsome = lstChoice.firstWhere((element) => element.keyQuiz == keyId,
+        orElse: () => null);
     if (anwsome == null) {
       lstChoice.add(new AnsModel(keyQuiz: keyId, ans: id));
       setColor(Colors.greenAccent, keyId, id);
@@ -82,8 +83,15 @@ class ChapterViewModel extends ChangeNotifier {
   void setColor(value, keyId, id) {
     QuizQuestion questionsa = lstQuizData
         .firstWhere((element) => element.keyQuiz == keyId)
-        .quizQuestion[id];
+        .quizQuestion[int.parse(id) - 1];
     questionsa.color = value;
     notifyListeners();
+  }
+
+  void setCleanData() {
+    lstQuizData = [];
+    lstAnwsome = [];
+    lstChoice = [];
+    lstResult = [];
   }
 }

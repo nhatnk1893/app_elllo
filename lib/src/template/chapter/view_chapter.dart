@@ -1,4 +1,5 @@
 import 'package:app_elllo/src/models/tab_chapter.dart';
+import 'package:app_elllo/src/template/chapter/tab/view_quiz.dart';
 import 'package:app_elllo/src/template/chapter/view_model_chapter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,8 +76,12 @@ class _ChapterViewState extends State<ChapterView>
               script: chapter.script,
               url: chapter.mp3,
             ),
-            ScriptView(),
-            ScriptView(),
+            QuizView(
+              quizs: quizs,
+            ),
+            QuizView(
+              quizs: quizs,
+            ),
           ]),
         );
       },

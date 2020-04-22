@@ -17,6 +17,7 @@ class LessonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Provider.of<ChapterViewModel>(context, listen: false).setCleanData();
         Provider.of<ChapterViewModel>(context, listen: false).fetchData(id);
         Navigator.push(
           context,

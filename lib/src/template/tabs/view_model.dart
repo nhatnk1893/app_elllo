@@ -8,11 +8,8 @@ import 'package:flutter/cupertino.dart';
 class TabViewModel extends ChangeNotifier {
   NetWorkRepository _repository = NetworkRepositoryImpl();
 
-  List<Category> listCategoryTutorial = [];
-  List<Category> listCategoryLevel = [];
   List<Category> listCategoryAudio = [];
   List<Category> listCategoryVideo = [];
-  List<Category> listCategoryMixer = [];
 
   bool isLoading = true;
   int tabIndex = 0;
@@ -23,26 +20,17 @@ class TabViewModel extends ChangeNotifier {
 
   fetchData() async {
     setLoading(true);
-    String tabName = tabs[2].title.toLowerCase();
+    String tabName = tabs[tabIndex].title.toLowerCase();
     final data = await _repository.getCategory(tabName);
     switch (tabName) {
-      case CategoryName.CATEGORY_TUTORIAL:
-        setTutorialData(data);
-        break;
-      case CategoryName.CATEGORY_LEVEL:
-        setLevelData(data);
-        break;
       case "audio":
         setAudioData(data);
         break;
-      case CategoryName.CATEGORY_VIDEO:
+      case "video":
         setVideoData(data);
         break;
-      case CategoryName.CATEGORY_MIXER:
-        setMixerData(data);
-        break;
       default:
-        setTutorialData(data);
+        setAudioData(data);
         break;
     }
     setLoading(false);
@@ -58,20 +46,6 @@ class TabViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTutorialData(value) async {
-    if (value != null) {
-      listCategoryTutorial = value;
-    }
-    notifyListeners();
-  }
-
-  void setLevelData(value) async {
-    if (value != null) {
-      listCategoryLevel = value;
-    }
-    notifyListeners();
-  }
-
   void setAudioData(value) async {
     if (value != null) {
       listCategoryAudio = value;
@@ -82,13 +56,6 @@ class TabViewModel extends ChangeNotifier {
   void setVideoData(value) async {
     if (value != null) {
       listCategoryVideo = value;
-    }
-    notifyListeners();
-  }
-
-  void setMixerData(value) async {
-    if (value != null) {
-      listCategoryMixer = value;
     }
     notifyListeners();
   }

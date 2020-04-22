@@ -5,9 +5,6 @@ import 'package:provider/provider.dart';
 
 import 'package:app_elllo/src/template/tabs/view_model.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_audio.dart';
-import 'package:app_elllo/src/template/tabs/views/tab_level.dart';
-import 'package:app_elllo/src/template/tabs/views/tab_mixer.dart';
-import 'package:app_elllo/src/template/tabs/views/tab_tutorial.dart';
 import 'package:app_elllo/src/template/tabs/views/tab_video.dart';
 
 class MainScreen extends StatefulWidget {
@@ -69,18 +66,21 @@ class _MainScreenState extends State<MainScreen>
                     labelColor: Colors.pink[400],
                     tabs: tabs
                         .map((TabChoice tab) => Tab(
-                              text: tab.title,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Text(
+                                  '${tab.title}',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ))
                         .toList()),
               ),
               preferredSize: const Size.fromHeight(48.0))),
       drawer: Drawer(),
       body: TabBarView(controller: _tabController, children: [
-        TabTutorial(),
-        TabLevel(),
         TabAudio(),
         TabVideo(),
-        TabMixer()
       ]),
     );
   }

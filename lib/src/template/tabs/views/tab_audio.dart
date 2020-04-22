@@ -33,7 +33,7 @@ class _TabAudioState extends State<TabAudio>
                           Category category = categories[index];
                           return Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 8),
+                                horizontal: 8, vertical: 4),
                             child: CategoryItem(
                               img: category.image,
                               name: category.name,
