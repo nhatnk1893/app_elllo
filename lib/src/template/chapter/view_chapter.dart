@@ -34,6 +34,7 @@ class _ChapterViewState extends State<ChapterView>
     return Consumer<ChapterViewModel>(
       builder: (BuildContext context, ChapterViewModel value, Widget child) {
         var chapter = value.chapter;
+        var quizs = value.lstQuizData;
         return Scaffold(
           appBar: AppBar(
               title: Text('${widget.title}'),

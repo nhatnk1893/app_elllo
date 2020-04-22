@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:app_elllo/src/models/chapter/ans_model.dart';
 import 'package:app_elllo/src/models/chapter/chapter_api.dart';
 import 'package:app_elllo/src/models/chapter/quiz_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../services/network/network_repository.dart';
 import '../../services/network/network_repositoryImpl.dart';
@@ -12,6 +14,9 @@ class ChapterViewModel extends ChangeNotifier {
   ChapterApi chapter;
   List<QuizModel> lstQuizData = new List<QuizModel>();
   bool isLoading = true;
+  List<AnsModel> lstAns = new List<AnsModel>();
+  List<AnsModel> lstChoice = new List<AnsModel>();
+  List<AnsModel> lstResult = new List<AnsModel>();
 
   fetchData(id) async {
     setLoading(true);
@@ -38,14 +43,12 @@ class ChapterViewModel extends ChangeNotifier {
       var lstQuestionKey = quizQuestion.keys.toList();
       for (var key in lstQuestionKey) {
         var questionQuiz = quizQuestion[key];
-        lstQusestion
-            .add(new QuizQuestion(key: key, questionName: questionQuiz));
+        lstQusestion.add(new QuizQuestion(
+            key: key, questionName: questionQuiz, color: Colors.white));
       }
+      lstAns.add(new AnsModel(keyQuiz: keyQuiz, ans: anwsome));
       lstQuizData.add(new QuizModel(
-          keyQuiz: keyQuiz,
-          question: question,
-          ans: anwsome,
-          quizQuestion: lstQusestion));
+          keyQuiz: keyQuiz, question: question, quizQuestion: lstQusestion));
     }
   }
 
@@ -54,10 +57,33 @@ class ChapterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void choiceAns(keyId, id) {
+    var anwsome = lstChoice.firstWhere((element) => element.keyQuiz == keyId);
+    if (anwsome == null) {
+      lstChoice.add(new AnsModel(keyQuiz: keyId, ans: id));
+      setColor(Colors.greenAccent, keyId, id);
+    } else {
+      var idOld = anwsome.ans;
+      setColor(Colors.white, keyId, idOld);
+      var index = lstChoice.indexOf(anwsome);
+      lstChoice[index] = new AnsModel(keyQuiz: keyId, ans: id);
+      setColor(Colors.greenAccent, keyId, id);
+    }
+    notifyListeners();
+  }
+
   void setData(value) {
     if (value != null) {
       chapter = value;
     }
+    notifyListeners();
+  }
+
+  void setColor(value, keyId, id) {
+    QuizQuestion questionsa = lstQuizData
+        .firstWhere((element) => element.keyQuiz == keyId)
+        .quizQuestion[id];
+    questionsa.color = value;
     notifyListeners();
   }
 }

@@ -1,16 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/material.dart';
 
 class QuizModel {
   String keyQuiz;
   String question;
-  String ans;
   List<QuizQuestion> quizQuestion;
-
-  QuizModel({this.keyQuiz, this.question, this.ans, this.quizQuestion});
+  QuizModel({this.keyQuiz, this.question, this.quizQuestion});
 }
 
 class QuizQuestion {
   String key;
   String questionName;
-  QuizQuestion({this.key, this.questionName});
+  Color color;
+  QuizQuestion({this.key, this.questionName, this.color});
 }
