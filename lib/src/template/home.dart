@@ -61,9 +61,9 @@ class _MainScreenState extends State<MainScreen>
                 child: TabBar(
                     controller: _tabController,
                     isScrollable: true,
-                    unselectedLabelColor: Colors.pink[200],
-                    indicatorColor: Colors.pinkAccent,
-                    labelColor: Colors.pink[400],
+                    unselectedLabelColor: Colors.blue[200],
+                    indicatorColor: Colors.blueAccent,
+                    labelColor: Colors.blue[400],
                     tabs: tabs
                         .map((TabChoice tab) => Tab(
                               child: Container(

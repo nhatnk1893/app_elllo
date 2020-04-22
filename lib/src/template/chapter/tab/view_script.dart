@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:app_elllo/src/template/chapter/widget/player_widget.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';

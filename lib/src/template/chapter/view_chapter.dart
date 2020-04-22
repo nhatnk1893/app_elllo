@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'tab/view_script.dart';
+import 'tab/view_vocab_grammar.dart';
 
 class ChapterView extends StatefulWidget {
   final String title;
@@ -76,8 +77,8 @@ class _ChapterViewState extends State<ChapterView>
               script: chapter.script,
               url: chapter.mp3,
             ),
-            QuizView(
-              quizs: quizs,
+            VocabView(
+              vocabu: chapter.voca,
             ),
             QuizView(
               quizs: quizs,

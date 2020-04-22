@@ -36,7 +36,10 @@ class CategoryItem extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.arrow_forward_ios),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.blue[400],
+                    ),
                     SizedBox(
                       width: 16,
                     ),
@@ -46,7 +49,9 @@ class CategoryItem extends StatelessWidget {
                       child: Text(
                         '$name',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.blue[300]),
                       ),
                     ))
                   ],
