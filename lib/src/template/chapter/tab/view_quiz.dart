@@ -11,7 +11,7 @@ class QuizView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: EdgeInsets.only(top: 8, left: 16, right: 16),
         child: Column(
           children: [
             Expanded(
@@ -24,39 +24,50 @@ class QuizView extends StatelessWidget {
                       List<QuizQuestion> questions = quiz.quizQuestion;
                       return Column(
                         children: [
-                          Text('${quiz.question}'),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('${quiz.question}'),
+                          ),
                           for (var i in questions)
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2, horizontal: 8),
-                              child: InkWell(
-                                  onTap: () {
-                                    Provider.of<ChapterViewModel>(context,
-                                            listen: false)
-                                        .choiceAns(quiz.keyQuiz, i.key);
-                                  },
-                                  child: Container(
-                                      height: 60,
-                                      width: MediaQuery.of(context).size.width,
+                            InkWell(
+                                onTap: () {
+                                  Provider.of<ChapterViewModel>(context,
+                                          listen: false)
+                                      .choiceAns(quiz.keyQuiz, i.key);
+                                },
+                                child: Container(
+                                    height: 56,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Padding(
                                       child: new Material(
                                         color: i.color,
-                                        elevation: 10.0,
+                                        elevation: 1,
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        child: Text('${i.questionName}'),
-                                      ))),
-                            )
+                                        child: Padding(
+                                            child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child:
+                                                    Text('${i.questionName}')),
+                                            padding: EdgeInsets.only(left: 8)),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 32, vertical: 4),
+                                    ))),
                         ],
                       );
                     })),
             Container(
-              child: InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Row(
-                    children: <Widget>[Icon(Icons.check), Text('Check result')],
-                  ),
+              height: 64,
+              child: Center(
+                child: RaisedButton.icon(
+                  onPressed: () {
+                    Provider.of<ChapterViewModel>(context, listen: false)
+                        .checkResult();
+                  },
+                  icon: Icon(Icons.check),
+                  label: Text('Check quiz'),
+                  color: Colors.blue[300],
                 ),
               ),
             )

@@ -59,17 +59,22 @@ class _ChapterViewState extends State<ChapterView>
                         )
                       ],
                     ),
-                    child: TabBar(
-                        controller: _tabController,
-                        isScrollable: true,
-                        unselectedLabelColor: Colors.pink[200],
-                        indicatorColor: Colors.pinkAccent,
-                        labelColor: Colors.pink[400],
-                        tabs: tabsChapter
-                            .map((TabChapterChoice tab) => Tab(
-                                  text: tab.title,
-                                ))
-                            .toList()),
+                    child: Center(
+                      child: TabBar(
+                          controller: _tabController,
+                          isScrollable: true,
+                          unselectedLabelColor: Colors.pink[200],
+                          indicatorColor: Colors.pinkAccent,
+                          labelColor: Colors.pink[400],
+                          tabs: tabsChapter
+                              .map((TabChapterChoice tab) => Tab(
+                                    child: Container(
+                                      child:
+                                          Center(child: Text('${tab.title}')),
+                                    ),
+                                  ))
+                              .toList()),
+                    ),
                   ),
                   preferredSize: const Size.fromHeight(48.0))),
           body: TabBarView(controller: _tabController, children: [

@@ -88,6 +88,15 @@ class ChapterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void checkResult() {
+    for (var a in lstChoice) {
+      var r = lstAnwsome.firstWhere((e) => e.keyQuiz == a.keyQuiz).ans;
+      if (a.ans != r) {
+        setColor(Colors.red, a.keyQuiz, a.ans);
+      }
+    }
+  }
+
   void setCleanData() {
     lstQuizData = [];
     lstAnwsome = [];

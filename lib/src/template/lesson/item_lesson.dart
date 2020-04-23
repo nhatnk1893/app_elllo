@@ -16,79 +16,48 @@ class LessonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Provider.of<ChapterViewModel>(context, listen: false).setCleanData();
-        Provider.of<ChapterViewModel>(context, listen: false).fetchData(id);
-        Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.rightToLeft,
-              child: ChapterView(
-                title: title,
-              )),
-        );
-      },
-      child: Container(
-        height: 150,
-        child: new Material(
-          color: Colors.white,
-          elevation: 10.0,
-          borderRadius: BorderRadius.circular(20.0),
-          shadowColor: Colors.pink[200],
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  height: 150,
-                  child: ClipRRect(
-                      child: Container(
-                    constraints: new BoxConstraints.expand(
-                      height: 150.0,
-                    ),
-                    alignment: Alignment.bottomLeft,
-                    padding: new EdgeInsets.only(left: 16.0, bottom: 8.0),
-                    decoration: new BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          bottomLeft: Radius.circular(20.0)),
-                      image: new DecorationImage(
-                        image: new NetworkImage(img),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        onTap: () {
+          Provider.of<ChapterViewModel>(context, listen: false).setCleanData();
+          Provider.of<ChapterViewModel>(context, listen: false).fetchData(id);
+          Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.rightToLeft,
+                child: ChapterView(
+                  title: title,
+                )),
+          );
+        },
+        child: Container(
+            height: 56,
+            child: new Material(
+              color: Colors.white,
+              elevation: 2.0,
+              borderRadius: BorderRadius.circular(20.0),
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
                     children: <Widget>[
-                      Padding(
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.blue[400],
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
                         child: Text(
-                          title,
+                          '$title',
                           style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 16.0),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.blue[300]),
                         ),
-                        padding: EdgeInsets.only(top: 8.0),
-                      ),
-                      Divider(),
-                      Text(
-                        subTitle,
-                      ),
+                      ))
                     ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                  )),
+            )));
   }
 }
