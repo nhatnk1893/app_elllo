@@ -25,16 +25,13 @@ class LessonView extends StatelessWidget {
                     ? FailApi()
                     : RefreshIndicator(
                         child: ListView.builder(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 13, vertical: 8.0),
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
                           shrinkWrap: true,
-                          // physics: NeverScrollableScrollPhysics(),
                           itemCount: value.lstLesson.length,
                           itemBuilder: (BuildContext context, int index) {
                             Lesson lesson = value.lstLesson[index];
                             return Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 8),
+                                padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: LessonItem(
                                   img: lesson.image,
                                   title: lesson.title,

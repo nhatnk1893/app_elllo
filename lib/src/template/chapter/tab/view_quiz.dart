@@ -11,13 +11,12 @@ class QuizView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
             Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    // physics: NeverScrollableScrollPhysics(),
                     itemCount: quizs.length,
                     itemBuilder: (BuildContext context, int index) {
                       QuizModel quiz = quizs[index];
@@ -26,7 +25,11 @@ class QuizView extends StatelessWidget {
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: Text('${quiz.question}'),
+                            child: Text(
+                              '${quiz.question}',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w300),
+                            ),
                           ),
                           for (var i in questions)
                             InkWell(
@@ -42,17 +45,15 @@ class QuizView extends StatelessWidget {
                                       child: new Material(
                                         color: i.color,
                                         elevation: 1,
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
                                         child: Padding(
                                             child: Align(
                                                 alignment: Alignment.centerLeft,
                                                 child:
                                                     Text('${i.questionName}')),
-                                            padding: EdgeInsets.only(left: 8)),
+                                            padding: EdgeInsets.only(left: 16)),
                                       ),
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 32, vertical: 4),
+                                          horizontal: 16, vertical: 4),
                                     ))),
                         ],
                       );

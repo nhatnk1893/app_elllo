@@ -1,6 +1,7 @@
 import 'package:app_elllo/src/models/tab_chapter.dart';
 import 'package:app_elllo/src/template/chapter/tab/view_quiz.dart';
 import 'package:app_elllo/src/template/chapter/view_model_chapter.dart';
+import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,42 +39,46 @@ class _ChapterViewState extends State<ChapterView>
         var chapter = value.chapter;
         var quizs = value.lstQuizData;
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
-              title: Text('${widget.title}'),
+              title: Text(
+                '${widget.title}',
+                style: TextStyle(color: Colors.blue),
+              ),
               actions: [
-                IconButton(icon: Icon(Icons.file_download), onPressed: null),
-                IconButton(icon: Icon(Icons.share), onPressed: null)
+                IconButton(
+                    icon: Icon(
+                      Icons.bookmark_border,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {})
               ],
               bottom: PreferredSize(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.pink[200],
-                          offset: Offset(
-                            0.0,
-                            0.70,
-                          ),
-                        )
-                      ],
-                    ),
                     child: Center(
                       child: TabBar(
                           controller: _tabController,
                           isScrollable: true,
-                          unselectedLabelColor: Colors.pink[200],
-                          indicatorColor: Colors.pinkAccent,
-                          labelColor: Colors.pink[400],
-                          tabs: tabsChapter
-                              .map((TabChapterChoice tab) => Tab(
-                                    child: Container(
-                                      child:
-                                          Center(child: Text('${tab.title}')),
-                                    ),
-                                  ))
-                              .toList()),
+                          unselectedLabelColor: Colors.blue[200],
+                          indicatorColor: Colors.blue,
+                          labelColor: Colors.blue[400],
+                          tabs: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Tab(
+                                  text: TabChapterName.TAB_SCRIPT,
+                                ),
+                                Tab(
+                                  text: TabChapterName.TAB_SCRIPT,
+                                ),
+                                Tab(
+                                  text: TabChapterName.TAB_VOCABFRAMMAR,
+                                )
+                              ],
+                            )
+                          ]),
                     ),
                   ),
                   preferredSize: const Size.fromHeight(48.0))),

@@ -32,8 +32,6 @@ class LessonItem extends StatelessWidget {
             height: 56,
             child: new Material(
               color: Colors.white,
-              elevation: 2.0,
-              borderRadius: BorderRadius.circular(20.0),
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
@@ -51,7 +49,7 @@ class LessonItem extends StatelessWidget {
                         child: Text(
                           '$title',
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: Colors.blue[300]),
                         ),

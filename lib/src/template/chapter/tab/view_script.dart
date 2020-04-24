@@ -70,38 +70,34 @@ class _ScriptViewState extends State<ScriptView> {
   }
 
   Widget slider() {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Slider(
-            activeColor: Colors.black,
-            inactiveColor: Colors.pink,
-            value: position.inSeconds.toDouble(),
-            min: 0.0,
-            max: duration.inSeconds.toDouble(),
-            onChanged: (double value) {
-              setState(() {
-                seekToSecond(value.toInt());
-                value = value;
-              });
-            }),
-        Padding(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                position != null
-                    ? '${_positionText ?? ''} '
-                    : duration != null ? _durationText : '',
-              ),
-              Text(
-                position != null
-                    ? '${_durationText ?? ''} '
-                    : duration != null ? _durationText : '',
-              ),
-            ],
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
+        Text(
+          position != null
+              ? '${_positionText ?? ''} '
+              : duration != null ? _durationText : '',
+          style: TextStyle(color: Colors.blue[300], fontSize: 12),
         ),
+        Expanded(
+          child: Slider(
+              activeColor: Colors.blueAccent,
+              inactiveColor: Colors.white,
+              value: position.inSeconds.toDouble(),
+              min: 0.0,
+              max: duration.inSeconds.toDouble(),
+              onChanged: (double value) {
+                setState(() {
+                  seekToSecond(value.toInt());
+                  value = value;
+                });
+              }),
+        ),
+        Text(
+            position != null
+                ? '${_durationText ?? ''} '
+                : duration != null ? _durationText : '',
+            style: TextStyle(color: Colors.blue[300], fontSize: 12)),
       ],
     );
   }
@@ -141,8 +137,11 @@ class _ScriptViewState extends State<ScriptView> {
         child: Column(
           children: <Widget>[
             Expanded(
-                child: SingleChildScrollView(
-              child: Html(data: '''${widget.script}'''),
+                child: Padding(
+              padding: EdgeInsets.all(16),
+              child: SingleChildScrollView(
+                child: Html(data: '''${widget.script}'''),
+              ),
             )),
             Container(
                 child: Column(

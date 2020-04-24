@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
         context,
         PageTransition(
-            child: MainScreen(), type: PageTransitionType.leftToRight));
+            child: HomeScreen(), type: PageTransitionType.leftToRight));
   }
 
   @override

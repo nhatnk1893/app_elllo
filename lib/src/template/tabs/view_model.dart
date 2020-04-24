@@ -2,6 +2,7 @@ import 'package:app_elllo/src/models/category/category.dart';
 import 'package:app_elllo/src/models/tab.dart';
 import 'package:app_elllo/src/services/network/network_repository.dart';
 import 'package:app_elllo/src/services/network/network_repositoryImpl.dart';
+import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 
 class TabViewModel extends ChangeNotifier {
@@ -11,7 +12,6 @@ class TabViewModel extends ChangeNotifier {
   List<Category> listCategoryVideo = [];
 
   bool isLoading = true;
-  int tabIndex = 0;
 
   TabViewModel() {
     fetchData();
@@ -19,25 +19,20 @@ class TabViewModel extends ChangeNotifier {
 
   fetchData() async {
     setLoading(true);
-    String tabName = tabs[tabIndex].title.toLowerCase();
-    final data = await _repository.getCategory(tabName);
-    switch (tabName) {
-      case "audio":
-        setAudioData(data);
-        break;
-      case "video":
-        setVideoData(data);
-        break;
-      default:
-        setAudioData(data);
-        break;
+    for (var tab in tabs) {
+      tab.title == CategoryName.CATEGORY_AUDIO
+          ? setVideoData(await _repository.getCategory(tab.value))
+          : setAudioData(await _repository.getCategory(tab.value));
     }
     setLoading(false);
   }
 
-  void setTabIndex(value) async {
-    tabIndex = value;
-    notifyListeners();
+  refreshData(tab) async {
+    setLoading(true);
+    tab == CategoryName.CATEGORY_AUDIO
+        ? setVideoData(await _repository.getCategory(tab))
+        : setAudioData(await _repository.getCategory(tab));
+    setLoading(false);
   }
 
   void setLoading(value) async {

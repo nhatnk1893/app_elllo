@@ -9,7 +9,7 @@ class SplashWidget extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/imgSplash.jpg"),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.contain,
         ),
       ),
     );
