@@ -1,10 +1,8 @@
-import 'dart:io';
+import 'dart:async';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-
 import 'package:provider/provider.dart';
 
 enum PlayerState { stopped, playing, paused }
@@ -20,143 +18,168 @@ class ScriptView extends StatefulWidget {
 }
 
 class _ScriptViewState extends State<ScriptView> {
-  AudioPlayerState _audioPlayerState;
+  AudioPlayer audioPlayer = AudioPlayer();
+  AudioPlayerState audioPlayerState;
+  Duration duration = new Duration();
+  Duration position = new Duration();
+  double backRate = 1.0;
   PlayerState _playerState = PlayerState.stopped;
-  Duration _duration = new Duration();
-  Duration _position = new Duration();
-  AudioPlayer advancedPlayer;
-  AudioCache audioCache;
+  StreamSubscription _durationSubscription;
+  StreamSubscription _positionSubscription;
+  StreamSubscription _playerCompleteSubscription;
+  StreamSubscription _playerErrorSubscription;
+  StreamSubscription _playerStateSubscription;
 
   get _isPlaying => _playerState == PlayerState.playing;
-  get _isPaused => _playerState == PlayerState.paused;
 
+  get _durationText => duration?.toString()?.split('.')?.first ?? '';
+  get _positionText => position?.toString()?.split('.')?.first ?? '';
   void initPlayer() {
-    advancedPlayer = new AudioPlayer();
-    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+    audioPlayer = new AudioPlayer();
 
-    advancedPlayer.durationHandler = (d) => setState(() {
-          _duration = d;
+    audioPlayer.durationHandler = (d) => setState(() {
+          duration = d;
         });
 
-    advancedPlayer.positionHandler = (p) => setState(() {
-          _position = p;
+    audioPlayer.positionHandler = (p) => setState(() {
+          position = p;
         });
+  }
+
+  void play() async {
+    final playPosition = (position != null &&
+            duration != null &&
+            position.inMilliseconds > 0 &&
+            position.inMilliseconds < duration.inMilliseconds)
+        ? position
+        : null;
+    final result =
+        await audioPlayer.play('${widget.url}', position: playPosition);
+    if (result == 1) setState(() => _playerState = PlayerState.playing);
+
+    audioPlayer.setPlaybackRate(playbackRate: 1.0);
+  }
+
+  void pause() async {
+    await audioPlayer.pause();
+    setState(() => _playerState = PlayerState.paused);
+  }
+
+  void resume() async {
+    await audioPlayer.stop();
+  }
+
+  Widget slider() {
+    return Column(
+      children: <Widget>[
+        Slider(
+            activeColor: Colors.black,
+            inactiveColor: Colors.pink,
+            value: position.inSeconds.toDouble(),
+            min: 0.0,
+            max: duration.inSeconds.toDouble(),
+            onChanged: (double value) {
+              setState(() {
+                seekToSecond(value.toInt());
+                value = value;
+              });
+            }),
+        Padding(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                position != null
+                    ? '${_positionText ?? ''} '
+                    : duration != null ? _durationText : '',
+              ),
+              Text(
+                position != null
+                    ? '${_durationText ?? ''} '
+                    : duration != null ? _durationText : '',
+              ),
+            ],
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+        ),
+      ],
+    );
+  }
+
+  void seekToSecond(int second) {
+    Duration newDuration = Duration(seconds: second);
+
+    audioPlayer.seek(newDuration);
   }
 
   @override
   void initState() {
     super.initState();
     initPlayer();
-    if (Platform.isIOS) {
-      if (audioCache.fixedPlayer != null) {
-        audioCache.fixedPlayer.startHeadlessService();
-      }
-      advancedPlayer.startHeadlessService();
-    }
   }
 
-  Future<int> _play(url) async {
-    final playPosition = (_position != null &&
-            _duration != null &&
-            _position.inMilliseconds > 0 &&
-            _position.inMilliseconds < _duration.inMilliseconds)
-        ? _position
-        : null;
-    final result = await advancedPlayer.play(url, position: playPosition);
-    if (result == 1) setState(() => _playerState = PlayerState.playing);
-
-    advancedPlayer.setPlaybackRate(playbackRate: 1.0);
-
-    return result;
-  }
-
-  Future<int> _pause() async {
-    final result = await advancedPlayer.pause();
-    if (result == 1) setState(() => _playerState = PlayerState.paused);
-    return result;
-  }
-
-  Widget slider() {
-    return Slider(
-        activeColor: Colors.black,
-        inactiveColor: Colors.pink,
-        value: _position.inSeconds.toDouble(),
-        min: 0.0,
-        max: _duration.inSeconds.toDouble(),
-        onChanged: (double value) {
-          setState(() {
-            seekToSecond(value.toInt());
-            value = value;
-          });
-        });
-  }
-
-  void seekToSecond(int second) {
-    Duration newDuration = Duration(seconds: second);
-
-    advancedPlayer.seek(newDuration);
+  @override
+  void dispose() {
+    audioPlayer.stop();
+    _durationSubscription?.cancel();
+    _positionSubscription?.cancel();
+    _playerCompleteSubscription?.cancel();
+    _playerErrorSubscription?.cancel();
+    _playerStateSubscription?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: MultiProvider(
-      providers: [
-        StreamProvider<Duration>.value(
-            initialData: Duration(),
-            value: advancedPlayer.onAudioPositionChanged),
-      ],
-      child: Column(
-        children: [
-          Expanded(
-              child: SingleChildScrollView(
-            child: Html(data: """${widget.script}"""),
-          )),
-          Container(
-            child: Column(
+      body: MultiProvider(
+        providers: [
+          StreamProvider<Duration>.value(
+              initialData: Duration(),
+              value: audioPlayer.onAudioPositionChanged),
+        ],
+        child: Column(
+          children: <Widget>[
+            Expanded(
+                child: SingleChildScrollView(
+              child: Html(data: '''${widget.script}'''),
+            )),
+            Container(
+                child: Column(
               children: <Widget>[
                 slider(),
-                Text('${widget.url}'),
                 Row(
                   children: <Widget>[
-                    IconButton(
-                      key: Key('play_button'),
-                      onPressed:
-                          _isPlaying ? null : () => _play('${widget.url}'),
-                      iconSize: 64.0,
-                      icon: Icon(Icons.play_arrow),
-                      color: Colors.cyan,
+                    Expanded(
+                      child: IconButton(
+                        icon: Icon(Icons.replay),
+                        onPressed: () => resume(),
+                        iconSize: 56,
+                      ),
                     ),
-                    IconButton(
-                      key: Key('pause_button'),
-                      onPressed: _isPlaying ? () => _pause() : null,
-                      iconSize: 64.0,
-                      icon: Icon(Icons.pause),
-                      color: Colors.cyan,
+                    Expanded(
+                      child: IconButton(
+                        icon: _isPlaying
+                            ? Icon(Icons.pause)
+                            : Icon(Icons.play_circle_outline),
+                        onPressed: _isPlaying ? () => pause() : () => play(),
+                        iconSize: 72,
+                      ),
                     ),
-                    IconButton(
-                      key: Key('play_playback2'),
-                      onPressed: () =>
-                          advancedPlayer.setPlaybackRate(playbackRate: 2.0),
-                      iconSize: 64.0,
-                      icon: Icon(Icons.slow_motion_video),
-                      color: Colors.cyan,
-                    ),
-                    IconButton(
-                      key: Key('play_playback1/2'),
-                      onPressed: () =>
-                          advancedPlayer.setPlaybackRate(playbackRate: 0.5),
-                      iconSize: 64.0,
-                      icon: Icon(Icons.slow_motion_video),
-                      color: Colors.cyan,
+                    Expanded(
+                      child: IconButton(
+                        icon: Icon(Icons.replay),
+                        onPressed: () => resume(),
+                        iconSize: 56,
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
-            ),
-          )
-        ],
+            ))
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

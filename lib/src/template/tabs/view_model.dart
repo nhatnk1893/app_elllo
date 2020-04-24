@@ -2,7 +2,6 @@ import 'package:app_elllo/src/models/category/category.dart';
 import 'package:app_elllo/src/models/tab.dart';
 import 'package:app_elllo/src/services/network/network_repository.dart';
 import 'package:app_elllo/src/services/network/network_repositoryImpl.dart';
-import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 
 class TabViewModel extends ChangeNotifier {

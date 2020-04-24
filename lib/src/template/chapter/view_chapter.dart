@@ -77,18 +77,22 @@ class _ChapterViewState extends State<ChapterView>
                     ),
                   ),
                   preferredSize: const Size.fromHeight(48.0))),
-          body: TabBarView(controller: _tabController, children: [
-            ScriptView(
-              script: chapter.script,
-              url: chapter.mp3,
-            ),
-            VocabView(
-              vocabu: chapter.voca,
-            ),
-            QuizView(
-              quizs: quizs,
-            ),
-          ]),
+          body: value.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : TabBarView(controller: _tabController, children: [
+                  ScriptView(
+                    script: chapter.script,
+                    url: chapter.mp3,
+                  ),
+                  VocabView(
+                    vocabu: chapter.voca,
+                  ),
+                  QuizView(
+                    quizs: quizs,
+                  ),
+                ]),
         );
       },
     );
