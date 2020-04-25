@@ -11,17 +11,15 @@ class HomeScreen extends StatelessWidget {
       length: tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
+          elevation: 1.0,
           title: Text(
             APP_TITLE,
-            style: TextStyle(color: Colors.blueAccent),
+            style: TextStyle(fontSize: 32),
           ),
           actions: [
             IconButton(
                 icon: Icon(
                   Icons.more_vert,
-                  color: Colors.blue,
                 ),
                 onPressed: () {})
           ],
@@ -31,11 +29,13 @@ class HomeScreen extends StatelessWidget {
                       text: tab.title,
                     ))
                 .toList(),
-            indicatorColor: Colors.blueAccent,
+            indicatorColor: Colors.white,
             indicatorPadding: EdgeInsets.only(top: 8),
-            labelColor: Colors.blue[300],
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.blue[300],
           ),
         ),
+        drawer: Drawer(),
         body: TabBarView(children: [TabAudio(), TabVideo()]),
       ),
     );

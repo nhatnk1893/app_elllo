@@ -518,6 +518,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  system_shortcuts:
+    dependency: transitive
+    description:
+      name: system_shortcuts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   term_glyph:
     dependency: transitive
     description:
@@ -560,6 +567,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
+  volume:
+    dependency: "direct main"
+    description:
+      name: volume
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   watcher:
     dependency: transitive
     description:

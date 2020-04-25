@@ -2,22 +2,21 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 
 enum PlayerState { stopped, playing, paused }
 
-class ScriptView extends StatefulWidget {
-  final String script;
+class AudioPlayersWidget extends StatefulWidget {
   final String url;
+  final PlayerMode mode;
 
-  const ScriptView({Key key, this.script, this.url}) : super(key: key);
+  const AudioPlayersWidget({Key key, this.url, this.mode}) : super(key: key);
 
   @override
-  _ScriptViewState createState() => _ScriptViewState();
+  _AudioPlayersWidgetState createState() => _AudioPlayersWidgetState();
 }
 
-class _ScriptViewState extends State<ScriptView> {
+class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
   AudioPlayer audioPlayer = AudioPlayer();
   AudioPlayerState audioPlayerState;
   Duration duration = new Duration();
@@ -35,7 +34,7 @@ class _ScriptViewState extends State<ScriptView> {
   get _durationText => duration?.toString()?.split('.')?.first ?? '';
   get _positionText => position?.toString()?.split('.')?.first ?? '';
   void initPlayer() {
-    audioPlayer = new AudioPlayer();
+    audioPlayer = new AudioPlayer(mode: widget.mode);
 
     audioPlayer.durationHandler = (d) => setState(() {
           duration = d;
@@ -44,6 +43,17 @@ class _ScriptViewState extends State<ScriptView> {
     audioPlayer.positionHandler = (p) => setState(() {
           position = p;
         });
+    _playerCompleteSubscription =
+        audioPlayer.onPlayerCompletion.listen((event) {
+      _onComplete();
+      setState(() {
+        position = new Duration();
+      });
+    });
+  }
+
+  void _onComplete() {
+    setState(() => _playerState = PlayerState.stopped);
   }
 
   void play() async {
@@ -65,8 +75,8 @@ class _ScriptViewState extends State<ScriptView> {
     setState(() => _playerState = PlayerState.paused);
   }
 
-  void resume() async {
-    await audioPlayer.stop();
+  void setVolume() async {
+    seekToSecond(0);
   }
 
   Widget slider() {
@@ -127,96 +137,76 @@ class _ScriptViewState extends State<ScriptView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiProvider(
-        providers: [
-          StreamProvider<Duration>.value(
-              initialData: Duration(),
-              value: audioPlayer.onAudioPositionChanged),
-        ],
+    return Container(
         child: Column(
+      children: <Widget>[
+        slider(),
+        Row(
           children: <Widget>[
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                child: Html(data: '''${widget.script}'''),
+            Container(
+              width: 100,
+              child: Center(
+                child: IconButton(
+                  icon: Icon(Icons.volume_up),
+                  onPressed: () => setVolume(),
+                  iconSize: 36,
+                ),
               ),
-            )),
-            Container(
-              height: 8.0,
-              decoration: BoxDecoration(color: Colors.blue[300]),
             ),
-            Container(
-                child: Column(
+            Expanded(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                slider(),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: 100,
-                      child: Center(
-                        child: IconButton(
-                          icon: Icon(Icons.volume_up),
-                          onPressed: () => resume(),
-                          iconSize: 36,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Center(
-                          child: IconButton(
-                            icon: Icon(Icons.replay_10),
-                            onPressed: () {},
-                            iconSize: 36,
+                Center(
+                  child: IconButton(
+                    icon: Icon(Icons.replay_10),
+                    onPressed: () {
+                      audioPlayer
+                          .seek(Duration(seconds: position.inSeconds - 10));
+                    },
+                    iconSize: 36,
+                    color: Colors.blue[400],
+                  ),
+                ),
+                Center(
+                  child: IconButton(
+                    icon: _isPlaying
+                        ? Icon(
+                            Icons.pause,
                             color: Colors.blue[400],
-                          ),
-                        ),
-                        Center(
-                          child: IconButton(
-                            icon: _isPlaying
-                                ? Icon(
-                                    Icons.pause,
-                                    color: Colors.blue[400],
-                                  )
-                                : Icon(Icons.play_circle_outline,
-                                    color: Colors.blue[400]),
-                            onPressed:
-                                _isPlaying ? () => pause() : () => play(),
-                            iconSize: 72,
-                          ),
-                        ),
-                        Center(
-                          child: IconButton(
-                            icon: Icon(Icons.forward_10),
-                            onPressed: () {},
-                            iconSize: 36,
-                            color: Colors.blue[400],
-                          ),
-                        ),
-                      ],
-                    )),
-                    Container(
-                      width: 100,
-                      child: Center(
-                        child: IconButton(
-                          icon: Icon(Icons.shutter_speed,
-                              color: Colors.blue[400]),
-                          onPressed: () => resume(),
-                          iconSize: 36,
-                        ),
-                      ),
-                    ),
-                  ],
+                          )
+                        : Icon(Icons.play_circle_outline,
+                            color: Colors.blue[400]),
+                    onPressed: _isPlaying ? () => pause() : () => play(),
+                    iconSize: 72,
+                  ),
+                ),
+                Center(
+                  child: IconButton(
+                    icon: Icon(Icons.forward_10),
+                    onPressed: () {
+                      audioPlayer
+                          .seek(Duration(seconds: position.inSeconds + 10));
+                    },
+                    iconSize: 36,
+                    color: Colors.blue[400],
+                  ),
                 ),
               ],
-            ))
+            )),
+            Container(
+              width: 100,
+              child: Center(
+                child: IconButton(
+                  icon: Icon(Icons.shutter_speed, color: Colors.blue[400]),
+                  onPressed: () => setVolume(),
+                  iconSize: 36,
+                ),
+              ),
+            ),
           ],
         ),
-      ),
-    );
+      ],
+    ));
   }
 }

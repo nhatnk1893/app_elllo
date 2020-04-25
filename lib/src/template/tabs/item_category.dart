@@ -28,6 +28,8 @@ class CategoryItem extends StatelessWidget {
       },
       child: Container(
           height: 56,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue[200], width: 1.0)),
           child: new Material(
             color: Colors.white,
             child: Padding(

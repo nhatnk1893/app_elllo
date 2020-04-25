@@ -50,6 +50,7 @@ class _ChapterViewState extends State<ChapterView>
                     icon: Icon(
                       Icons.bookmark_border,
                       color: Colors.blue,
+                      size: 32,
                     ),
                     onPressed: () {})
               ],
@@ -87,7 +88,8 @@ class _ChapterViewState extends State<ChapterView>
                     url: chapter.mp3,
                   ),
                   VocabView(
-                    vocabu: chapter.voca,
+                    // vocabu: chapter.voca,
+                    url: chapter.mp3,
                   ),
                   QuizView(
                     quizs: quizs,
