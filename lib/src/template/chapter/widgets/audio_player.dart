@@ -79,6 +79,42 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
     seekToSecond(0);
   }
 
+  Widget popupMenuRate() {
+    return PopupMenuButton<double>(
+      child: Center(
+        child: Text('x$backRate'),
+      ),
+      onSelected: (double result) {
+        setState(() {
+          backRate = result;
+        });
+        audioPlayer.setPlaybackRate(playbackRate: result);
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<double>>[
+        const PopupMenuItem<double>(
+          value: 1.75,
+          child: Text('Rate 1.75'),
+        ),
+        const PopupMenuItem<double>(
+          value: 1.25,
+          child: Text('Rate 1.25'),
+        ),
+        const PopupMenuItem<double>(
+          value: 1.0,
+          child: Text('Rate 1.0'),
+        ),
+        const PopupMenuItem<double>(
+          value: 0.75,
+          child: Text('Rate 0.75'),
+        ),
+        const PopupMenuItem<double>(
+          value: 0.5,
+          child: Text('Rate 0.5'),
+        ),
+      ],
+    );
+  }
+
   Widget slider() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,7 +180,7 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
         Row(
           children: <Widget>[
             Container(
-              width: 100,
+              width: 50,
               child: Center(
                 child: IconButton(
                   icon: Icon(Icons.volume_up),
@@ -195,13 +231,9 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
               ],
             )),
             Container(
-              width: 100,
+              width: 50,
               child: Center(
-                child: IconButton(
-                  icon: Icon(Icons.shutter_speed, color: Colors.blue[400]),
-                  onPressed: () => setVolume(),
-                  iconSize: 36,
-                ),
+                child: popupMenuRate(),
               ),
             ),
           ],

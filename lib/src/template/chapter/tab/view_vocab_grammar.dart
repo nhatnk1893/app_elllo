@@ -1,5 +1,6 @@
 import 'package:app_elllo/src/template/chapter/widgets/audio_player.dart';
 import 'package:app_elllo/src/template/chapter/widgets/audio_volume.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -15,6 +16,7 @@ class VocabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AudioPlayer advancedPlayer = AudioPlayer();
+    AudioCache audioCache = AudioCache();
     return MultiProvider(
         providers: [
           StreamProvider<Duration>.value(
@@ -26,7 +28,14 @@ class VocabView extends StatelessWidget {
             AudioPlayersWidget(
               url: url,
             ),
-            VolumeWidget()
+            VolumeWidget(),
+            Column(children: [
+              Text('Play notification sound: \'messenger.mp3\':'),
+              IconButton(
+                  icon: Icon(Icons.play_arrow),
+                  onPressed: () =>
+                      audioCache.play('messenger.mp3', isNotification: true)),
+            ])
           ],
         ));
   }
