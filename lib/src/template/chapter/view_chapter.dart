@@ -55,28 +55,23 @@ class _ChapterViewState extends State<ChapterView>
               ],
               bottom: PreferredSize(
                   child: Container(
+                    padding: const EdgeInsets.all(8.0),
                     width: MediaQuery.of(context).size.width,
                     child: Center(
                       child: TabBar(
                           controller: _tabController,
-                          isScrollable: true,
                           unselectedLabelColor: Colors.blue[200],
                           indicatorColor: Colors.blue,
                           labelColor: Colors.blue[400],
                           tabs: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Tab(
-                                  text: TabChapterName.TAB_SCRIPT,
-                                ),
-                                Tab(
-                                  text: TabChapterName.TAB_SCRIPT,
-                                ),
-                                Tab(
-                                  text: TabChapterName.TAB_VOCABFRAMMAR,
-                                )
-                              ],
+                            Tab(
+                              text: TabChapterName.TAB_SCRIPT,
+                            ),
+                            Tab(
+                              text: TabChapterName.TAB_VOCABFRAMMAR,
+                            ),
+                            Tab(
+                              text: TabChapterName.TAB_QUIZ,
                             )
                           ]),
                     ),

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors
-            .pink[800], //Changing this will change the color of the TabBar
+            .lightBlue[800], //Changing this will change the color of the TabBar
         accentColor: Colors.cyan[600],
       ),
       title: 'APP',

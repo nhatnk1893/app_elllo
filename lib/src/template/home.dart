@@ -12,11 +12,19 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
+          elevation: 0,
           title: Text(
             APP_TITLE,
             style: TextStyle(color: Colors.blueAccent),
           ),
-          actions: [IconButton(icon: Icon(Icons.more_vert), onPressed: () {})],
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: Colors.blue,
+                ),
+                onPressed: () {})
+          ],
           bottom: TabBar(
             tabs: tabs
                 .map((tab) => Tab(

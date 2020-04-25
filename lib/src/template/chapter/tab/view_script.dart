@@ -143,33 +143,68 @@ class _ScriptViewState extends State<ScriptView> {
                 child: Html(data: '''${widget.script}'''),
               ),
             )),
+            SizedBox(
+              height: 8.0,
+            ),
             Container(
                 child: Column(
               children: <Widget>[
                 slider(),
                 Row(
                   children: <Widget>[
-                    Expanded(
-                      child: IconButton(
-                        icon: Icon(Icons.replay),
-                        onPressed: () => resume(),
-                        iconSize: 56,
+                    Container(
+                      width: 100,
+                      child: Center(
+                        child: IconButton(
+                          icon: Icon(Icons.volume_up),
+                          onPressed: () => resume(),
+                          iconSize: 56,
+                        ),
                       ),
                     ),
                     Expanded(
-                      child: IconButton(
-                        icon: _isPlaying
-                            ? Icon(Icons.pause)
-                            : Icon(Icons.play_circle_outline),
-                        onPressed: _isPlaying ? () => pause() : () => play(),
-                        iconSize: 72,
-                      ),
-                    ),
-                    Expanded(
-                      child: IconButton(
-                        icon: Icon(Icons.replay),
-                        onPressed: () => resume(),
-                        iconSize: 56,
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Center(
+                          child: IconButton(
+                            icon: Icon(Icons.replay_10),
+                            onPressed: () {},
+                            iconSize: 36,
+                          ),
+                        ),
+                        Center(
+                          child: IconButton(
+                            icon: _isPlaying
+                                ? Icon(
+                                    Icons.pause,
+                                    color: Colors.blue[400],
+                                  )
+                                : Icon(Icons.play_circle_outline,
+                                    color: Colors.blue[400]),
+                            onPressed:
+                                _isPlaying ? () => pause() : () => play(),
+                            iconSize: 72,
+                          ),
+                        ),
+                        Center(
+                          child: IconButton(
+                            icon: Icon(Icons.forward_10),
+                            onPressed: () {},
+                            iconSize: 36,
+                          ),
+                        ),
+                      ],
+                    )),
+                    Container(
+                      width: 100,
+                      child: Center(
+                        child: IconButton(
+                          icon: Icon(Icons.shutter_speed,
+                              color: Colors.blue[400]),
+                          onPressed: () => resume(),
+                          iconSize: 56,
+                        ),
                       ),
                     ),
                   ],

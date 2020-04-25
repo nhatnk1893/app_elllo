@@ -19,19 +19,15 @@ class TabViewModel extends ChangeNotifier {
 
   fetchData() async {
     setLoading(true);
-    for (var tab in tabs) {
-      tab.title == CategoryName.CATEGORY_AUDIO
-          ? setVideoData(await _repository.getCategory(tab.value))
-          : setAudioData(await _repository.getCategory(tab.value));
-    }
+    final data = await _repository.getCategory(tabs[0].value);
+    setAudioData(data);
     setLoading(false);
   }
 
   refreshData(tab) async {
     setLoading(true);
-    tab == CategoryName.CATEGORY_AUDIO
-        ? setVideoData(await _repository.getCategory(tab))
-        : setAudioData(await _repository.getCategory(tab));
+    final data = await _repository.getCategory(tab);
+    setAudioData(data);
     setLoading(false);
   }
 
