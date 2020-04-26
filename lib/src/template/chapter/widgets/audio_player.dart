@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 enum PlayerState { stopped, playing, paused }
 
@@ -82,7 +81,10 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
   Widget popupMenuRate() {
     return PopupMenuButton<double>(
       child: Center(
-        child: Text('x$backRate'),
+        child: Text(
+          'x$backRate',
+          style: TextStyle(color: Colors.blue[300]),
+        ),
       ),
       onSelected: (double result) {
         setState(() {
@@ -91,23 +93,25 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
         audioPlayer.setPlaybackRate(playbackRate: result);
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<double>>[
-        const PopupMenuItem<double>(
-          value: 1.75,
-          child: Text('Rate 1.75'),
-        ),
-        const PopupMenuItem<double>(
+        PopupMenuItem<double>(
+            value: 1.75,
+            child: Text('Rate 1.75',
+                style: TextStyle(
+                    color:
+                        backRate == 1.75 ? Colors.blue[300] : Colors.black))),
+        PopupMenuItem<double>(
           value: 1.25,
           child: Text('Rate 1.25'),
         ),
-        const PopupMenuItem<double>(
+        PopupMenuItem<double>(
           value: 1.0,
           child: Text('Rate 1.0'),
         ),
-        const PopupMenuItem<double>(
+        PopupMenuItem<double>(
           value: 0.75,
           child: Text('Rate 0.75'),
         ),
-        const PopupMenuItem<double>(
+        PopupMenuItem<double>(
           value: 0.5,
           child: Text('Rate 0.5'),
         ),
@@ -116,35 +120,38 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
   }
 
   Widget slider() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          position != null
-              ? '${_positionText ?? ''} '
-              : duration != null ? _durationText : '',
-          style: TextStyle(color: Colors.blue[300], fontSize: 12),
-        ),
-        Expanded(
-          child: Slider(
-              activeColor: Colors.blueAccent,
-              inactiveColor: Colors.white,
-              value: position.inSeconds.toDouble(),
-              min: 0.0,
-              max: duration.inSeconds.toDouble(),
-              onChanged: (double value) {
-                setState(() {
-                  seekToSecond(value.toInt());
-                  value = value;
-                });
-              }),
-        ),
-        Text(
+    return Padding(
+      padding: EdgeInsets.only(left: 8.0, right: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
             position != null
-                ? '${_durationText ?? ''} '
+                ? '${_positionText ?? ''} '
                 : duration != null ? _durationText : '',
-            style: TextStyle(color: Colors.blue[300], fontSize: 12)),
-      ],
+            style: TextStyle(color: Colors.blue[300], fontSize: 12),
+          ),
+          Expanded(
+            child: Slider(
+                activeColor: Colors.blueAccent,
+                inactiveColor: Colors.blue[200],
+                value: position.inSeconds.toDouble(),
+                min: 0.0,
+                max: duration.inSeconds.toDouble(),
+                onChanged: (double value) {
+                  setState(() {
+                    seekToSecond(value.toInt());
+                    value = value;
+                  });
+                }),
+          ),
+          Text(
+              position != null
+                  ? '${_durationText ?? ''} '
+                  : duration != null ? _durationText : '',
+              style: TextStyle(color: Colors.blue[300], fontSize: 12)),
+        ],
+      ),
     );
   }
 

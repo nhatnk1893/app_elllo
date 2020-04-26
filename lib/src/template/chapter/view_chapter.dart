@@ -89,7 +89,7 @@ class _ChapterViewState extends State<ChapterView>
                   ),
                   VocabView(
                     // vocabu: chapter.voca,
-                    url: chapter.mp3,
+                    vocabu: chapter.voca,
                   ),
                   QuizView(
                     quizs: quizs,
