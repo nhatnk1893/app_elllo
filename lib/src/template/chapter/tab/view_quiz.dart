@@ -39,7 +39,7 @@ class QuizView extends StatelessWidget {
                                       .choiceAns(quiz.keyQuiz, i.key);
                                 },
                                 child: Container(
-                                    height: 56,
+                                    height: 64,
                                     width: MediaQuery.of(context).size.width,
                                     child: Padding(
                                       child: new Material(
@@ -53,7 +53,7 @@ class QuizView extends StatelessWidget {
                                             padding: EdgeInsets.only(left: 16)),
                                       ),
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 4),
+                                          horizontal: 8, vertical: 4),
                                     ))),
                         ],
                       );

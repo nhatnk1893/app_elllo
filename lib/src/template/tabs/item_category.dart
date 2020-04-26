@@ -27,11 +27,10 @@ class CategoryItem extends StatelessWidget {
         );
       },
       child: Container(
-          height: 56,
+          height: 64,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.blue[200], width: 1.0)),
           child: new Material(
-            color: Colors.white,
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -41,7 +40,7 @@ class CategoryItem extends StatelessWidget {
                       color: Colors.blue[400],
                     ),
                     SizedBox(
-                      width: 16,
+                      width: 32,
                     ),
                     Expanded(
                         child: Align(

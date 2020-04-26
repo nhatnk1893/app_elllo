@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:app_elllo/src/models/chapter/ans_model.dart';
 import 'package:app_elllo/src/models/chapter/chapter_api.dart';
 import 'package:app_elllo/src/models/chapter/quiz_model.dart';
+import 'package:app_elllo/src/models/tab_chapter.dart';
+import 'package:app_elllo/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +16,18 @@ class ChapterViewModel extends ChangeNotifier {
   ChapterApi chapter;
   List<QuizModel> lstQuizData = new List<QuizModel>();
   bool isLoading = true;
+  bool isDisplayScript = false;
+  bool isDisplayVoca = false;
   List<AnsModel> lstAnwsome = new List<AnsModel>();
   List<AnsModel> lstChoice = new List<AnsModel>();
   List<AnsModel> lstResult = new List<AnsModel>();
-
+  List<TabChapterChoice> tabBars = [];
   fetchData(id) async {
     setLoading(true);
     final data = await _repository.getChapter(id);
     getQuiz(data.quiz as dynamic, data.ans as dynamic);
     setData(data);
+    setTabBars();
     setLoading(false);
   }
 
@@ -50,6 +55,20 @@ class ChapterViewModel extends ChangeNotifier {
       lstQuizData.add(new QuizModel(
           keyQuiz: keyQuiz, question: question, quizQuestion: lstQusestion));
     }
+  }
+
+  void setTabBars() {
+    var script = chapter.script;
+    var vocabu = chapter.voca;
+    if (script != "0") {
+      tabBars.add(new TabChapterChoice(title: TabChapterName.TAB_SCRIPT));
+      isDisplayScript = true;
+    }
+    if (vocabu != "0") {
+      tabBars.add(new TabChapterChoice(title: TabChapterName.TAB_VOCABFRAMMAR));
+      isDisplayVoca = true;
+    }
+    tabBars.add(new TabChapterChoice(title: TabChapterName.TAB_QUIZ));
   }
 
   void setLoading(value) {
@@ -102,5 +121,6 @@ class ChapterViewModel extends ChangeNotifier {
     lstAnwsome = [];
     lstChoice = [];
     lstResult = [];
+    tabBars = [];
   }
 }

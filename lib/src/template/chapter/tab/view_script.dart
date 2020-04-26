@@ -48,8 +48,8 @@ class _ScriptViewState extends State<ScriptView> {
               ),
             )),
             Container(
-              height: 8.0,
-              decoration: BoxDecoration(color: Colors.blue[300]),
+              height: 4.0,
+              decoration: BoxDecoration(color: Colors.grey[300]),
             ),
             AudioPlayersWidget(
               url: widget.url,

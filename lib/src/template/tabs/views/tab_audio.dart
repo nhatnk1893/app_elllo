@@ -25,21 +25,24 @@ class _TabAudioState extends State<TabAudio>
               : categories.isEmpty
                   ? FailApi()
                   : RefreshIndicator(
-                      child: ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        shrinkWrap: true,
-                        itemCount: categories.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          Category category = categories[index];
-                          return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
-                            child: CategoryItem(
-                              img: category.image,
-                              name: category.name,
-                              category: category,
-                            ),
-                          );
-                        },
+                      child: Container(
+                        color: Colors.grey[300],
+                        child: ListView.builder(
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          shrinkWrap: true,
+                          itemCount: categories.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            Category category = categories[index];
+                            return Padding(
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              child: CategoryItem(
+                                img: category.image,
+                                name: category.name,
+                                category: category,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                       onRefresh: () => tabViewModel
                           .refreshData(CategoryName.CATEGORY_AUDIO)));

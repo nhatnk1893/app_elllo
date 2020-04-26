@@ -80,12 +80,26 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
 
   Widget popupMenuRate() {
     return PopupMenuButton<double>(
-      child: Center(
-        child: Text(
-          'x$backRate',
-          style: TextStyle(color: Colors.blue[300]),
-        ),
-      ),
+      child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue[200], width: 1.0)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'x$backRate',
+                style: TextStyle(color: Colors.blue[500], fontSize: 18),
+              ),
+              SizedBox(
+                width: 2.0,
+              ),
+              Icon(
+                Icons.arrow_drop_down_circle,
+                size: 16,
+                color: Colors.blue[500],
+              )
+            ],
+          )),
       onSelected: (double result) {
         setState(() {
           backRate = result;
@@ -101,19 +115,27 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
                         backRate == 1.75 ? Colors.blue[300] : Colors.black))),
         PopupMenuItem<double>(
           value: 1.25,
-          child: Text('Rate 1.25'),
+          child: Text('Rate 1.25',
+              style: TextStyle(
+                  color: backRate == 1.25 ? Colors.blue[300] : Colors.black)),
         ),
         PopupMenuItem<double>(
           value: 1.0,
-          child: Text('Rate 1.0'),
+          child: Text('Rate 1.0',
+              style: TextStyle(
+                  color: backRate == 1.0 ? Colors.blue[300] : Colors.black)),
         ),
         PopupMenuItem<double>(
           value: 0.75,
-          child: Text('Rate 0.75'),
+          child: Text('Rate 0.75',
+              style: TextStyle(
+                  color: backRate == 0.75 ? Colors.blue[300] : Colors.black)),
         ),
         PopupMenuItem<double>(
           value: 0.5,
-          child: Text('Rate 0.5'),
+          child: Text('Rate 0.5',
+              style: TextStyle(
+                  color: backRate == 0.5 ? Colors.blue[300] : Colors.black)),
         ),
       ],
     );
@@ -121,35 +143,49 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
 
   Widget slider() {
     return Padding(
-      padding: EdgeInsets.only(left: 8.0, right: 8.0),
+      padding: EdgeInsets.only(left: 4.0, right: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            position != null
-                ? '${_positionText ?? ''} '
-                : duration != null ? _durationText : '',
-            style: TextStyle(color: Colors.blue[300], fontSize: 12),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Text(
+                  position != null
+                      ? '${_positionText ?? ''} '
+                      : duration != null ? _durationText : '',
+                  style: TextStyle(color: Colors.blue[300], fontSize: 12),
+                ),
+                Expanded(
+                  child: Slider(
+                      activeColor: Colors.blueAccent,
+                      inactiveColor: Colors.blue[200],
+                      value: position.inSeconds.toDouble(),
+                      min: 0.0,
+                      max: duration.inSeconds.toDouble(),
+                      onChanged: (double value) {
+                        setState(() {
+                          seekToSecond(value.toInt());
+                          value = value;
+                        });
+                      }),
+                ),
+                Text(
+                    position != null
+                        ? '${_durationText ?? ''} '
+                        : duration != null ? _durationText : '',
+                    style: TextStyle(color: Colors.blue[300], fontSize: 12)),
+              ],
+            ),
+            flex: 4,
+          ),
+          SizedBox(
+            width: 8,
           ),
           Expanded(
-            child: Slider(
-                activeColor: Colors.blueAccent,
-                inactiveColor: Colors.blue[200],
-                value: position.inSeconds.toDouble(),
-                min: 0.0,
-                max: duration.inSeconds.toDouble(),
-                onChanged: (double value) {
-                  setState(() {
-                    seekToSecond(value.toInt());
-                    value = value;
-                  });
-                }),
-          ),
-          Text(
-              position != null
-                  ? '${_durationText ?? ''} '
-                  : duration != null ? _durationText : '',
-              style: TextStyle(color: Colors.blue[300], fontSize: 12)),
+            child: popupMenuRate(),
+            flex: 1,
+          )
         ],
       ),
     );
@@ -188,13 +224,6 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
           children: <Widget>[
             Container(
               width: 50,
-              child: Center(
-                child: IconButton(
-                  icon: Icon(Icons.volume_up),
-                  onPressed: () => setVolume(),
-                  iconSize: 36,
-                ),
-              ),
             ),
             Expanded(
                 child: Row(
@@ -221,7 +250,7 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
                         : Icon(Icons.play_circle_outline,
                             color: Colors.blue[400]),
                     onPressed: _isPlaying ? () => pause() : () => play(),
-                    iconSize: 72,
+                    iconSize: 64,
                   ),
                 ),
                 Center(
@@ -239,9 +268,6 @@ class _AudioPlayersWidgetState extends State<AudioPlayersWidget> {
             )),
             Container(
               width: 50,
-              child: Center(
-                child: popupMenuRate(),
-              ),
             ),
           ],
         ),
