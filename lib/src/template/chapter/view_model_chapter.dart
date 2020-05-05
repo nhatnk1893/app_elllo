@@ -5,7 +5,6 @@ import 'package:app_elllo/src/models/chapter/chapter_api.dart';
 import 'package:app_elllo/src/models/chapter/quiz_model.dart';
 import 'package:app_elllo/src/models/tab_chapter.dart';
 import 'package:app_elllo/src/utils/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/network/network_repository.dart';
